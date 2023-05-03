@@ -5,24 +5,8 @@ import (
 	"time"
 )
 
-/*
-create table `order`
-(
-   order_id             int unsigned not null AUTO_INCREMENT,
-   reward_amount        decimal(10,2) not null,
-   customer_id          int unsigned not null,
-   category          varchar(50) not null,
-   pickup_location_id   int unsigned not null,
-   delivery_location_id int unsigned not null,
-	created_at timestamp NULL DEFAULT NULL,
-   time_limit           Datetime,
-   primary key (order_id)
-);
-
-*/
-
-type Order struct {
-	OrderId            uint         `gorm:"column:order_id;type:int(11) unsigned;primary_key;AUTO_INCREMENT" json:"order_id"`
+type Offer struct {
+	OfferId            uint         `gorm:"column:offer_id;type:int(11) unsigned;primary_key;AUTO_INCREMENT" json:"offer_id"`
 	RewardAmount       float64      `gorm:"column:reward_amount;type:decimal(10,2);NOT NULL" json:"reward_amount"`
 	CustomerId         uint         `gorm:"column:customer_id;type:int(11) unsigned;NOT NULL" json:"customer_id"`
 	Category           string       `gorm:"column:category;type:varchar(50);NOT NULL" json:"category"`
@@ -32,6 +16,6 @@ type Order struct {
 	TimeLimit          time.Time    `gorm:"column:time_limit;type:datetime" json:"time_limit"`
 }
 
-func (m *Order) TableName() string {
-	return "order"
+func (m *Offer) TableName() string {
+	return "offer"
 }

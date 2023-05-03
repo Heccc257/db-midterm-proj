@@ -16,10 +16,12 @@ CREATE TABLE `borrow`  (
 `bookname` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 `created_at` timestamp NULL DEFAULT NULL,
 `updated_at` timestamp NULL DEFAULT NULL,
-PRIMARY KEY (`id`) USING BTREE,
-CONSTRAINT fk_borrow_book FOREIGN KEY(book_name) REFERENCES book(name) ON DELETE SET NULL
+PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
+
+CONSTRAINT fk_borrow_book FOREIGN KEY(bookname) REFERENCES book(name) ON DELETE CASCADE
+alter table borrow add constraint FK_Reference_1 foreign key (bookname) references book(name) ON DELETE CASCADE;
 
 */
 type Book struct {

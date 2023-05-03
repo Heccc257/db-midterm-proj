@@ -13,5 +13,6 @@ func TestNewDB(t *testing.T) {
 func TestCreateTables(t *testing.T) {
 	db, _ := NewDB("root", "123456", "pku_mutualhelper")
 	db.AutoMigrate(&model.User{})
+	db.AutoMigrate(&model.Offer{})
 
 }

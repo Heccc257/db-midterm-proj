@@ -1,12 +1,12 @@
-create table User
+create table user
 (
    user_id              int unsigned AUTO_INCREMENT not null,
    nickname             varchar(20) not null,
    full_name            varchar(20) not null,
    phone_number         varchar(20) not null,
    password_hash        char(64) not null,
-   order_count          int not null default 0,
-   order_complaint_count int not null default 0,
+   offer_count          int not null default 0,
+   offer_complaint_count int not null default 0,
    task_count           int not null default 0,
    task_complaint_count int not null default 0,
    primary key (user_id),
@@ -19,7 +19,7 @@ create table complaint
    complaint_id         int unsigned AUTO_INCREMENT not null,
    complainant_id       int unsigned not null,
    defendant_id         int unsigned not null,
-   order_id             int unsigned not null,
+   offer_id             int unsigned not null,
    complaint_reason     text not null,
    time                 timestamp not null,
    primary key (complaint_id)
@@ -36,7 +36,7 @@ create table location
 /*
 这里不需要id,name就可以当主键了
 */
-create table order_category
+create table offer_category
 (
    category_id    int unsigned AUTO_INCREMENT,
    category_name        varchar(50) not null,
@@ -46,9 +46,9 @@ create table order_category
 );
 
 
-create table `order`
+create table offer
 (
-   order_id             int unsigned not null AUTO_INCREMENT,
+   offer_id             int unsigned not null AUTO_INCREMENT,
    reward_amount        decimal(10,2) not null,
    customer_id          int unsigned not null,
    category          varchar(50) not null,
@@ -56,20 +56,20 @@ create table `order`
    delivery_location_id int unsigned not null,
 	created_at timestamp NULL DEFAULT NULL,
    time_limit           Datetime,
-   primary key (order_id)
+   primary key (offer_id)
 );
 
 
 /*
 同一个用户如果多次接相同的单则修改原来的单
 */
-create table accept_order
+create table accept_offer
 (
-   order_id             int unsigned not null,
+   offer_id             int unsigned not null,
    user_id              int unsigned  not null,
    created_at timestamp NULL DEFAULT NULL,
    status_code          ENUM('canceled', 'in_progress', 'completed') not null default 'in_progress',
-   primary key (order_id, user_id)
+   primary key (offer_id, user_id)
 );
 
 create table user_rating
@@ -77,7 +77,7 @@ create table user_rating
    rating_id            int unsigned AUTO_INCREMENT not null,
    rater_id             int unsigned not null,
    rated_user_id        int unsigned not null,
-   order_id             int unsigned not null,
+   offer_id             int unsigned not null,
    rating               int not null,
    comment              text,
    primary key (rating_id)
