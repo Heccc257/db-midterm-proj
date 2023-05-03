@@ -1,6 +1,6 @@
-create table Users
+create table User
 (
-   user_id              int not null,
+   user_id              int unsigned AUTO_INCREMENT not null,
    nickname             varchar(20) not null,
    full_name            varchar(20) not null,
    phone_number         varchar(20) not null,
@@ -13,12 +13,13 @@ create table Users
    key AK_u_phone (phone_number)
 );
 
+
 create table complaint
 (
-   complaint_id         int not null,
-   complainant_id       int not null,
-   defendant_id         int not null,
-   order_id             int not null,
+   complaint_id         int unsigned AUTO_INCREMENT not null,
+   complainant_id       int unsigned not null,
+   defendant_id         int unsigned not null,
+   order_id             int unsigned not null,
    complaint_reason     text not null,
    time                 timestamp not null,
    primary key (complaint_id)
@@ -26,9 +27,9 @@ create table complaint
 
 create table location
 (
-   location_id          int not null,
+   location_id          int unsigned AUTO_INCREMENT not null,
    building        VARCHAR(30) not null,
-   floor VARCHAR(30),
+   floor 			VARCHAR(30),
    primary key (location_id)
 );
 
@@ -37,22 +38,23 @@ create table location
 */
 create table order_category
 (
+   category_id    int unsigned AUTO_INCREMENT,
    category_name        varchar(50) not null,
    adviced_reward decimal(10,2) DEFAULT 100,
    adviced_timelimit_min int DEFAULT 100,
-    decimal(10,2) DEFAULT 100,
-   primary key (category_name)
+   primary key (category_id)
 );
 
 
 create table `order`
 (
-   order_id             int not null,
+   order_id             int unsigned not null AUTO_INCREMENT,
    reward_amount        decimal(10,2) not null,
-   customer_id          int not null,
+   customer_id          int unsigned not null,
    category          varchar(50) not null,
-   pickup_location_id   int not null,
-   delivery_location_id int not null,
+   pickup_location_id   int unsigned not null,
+   delivery_location_id int unsigned not null,
+	created_at timestamp NULL DEFAULT NULL,
    time_limit           Datetime,
    primary key (order_id)
 );
@@ -63,19 +65,19 @@ create table `order`
 */
 create table accept_order
 (
-   order_id             int not null,
-   user_id              int not null,
+   order_id             int unsigned not null,
+   user_id              int unsigned  not null,
    created_at timestamp NULL DEFAULT NULL,
    status_code          ENUM('canceled', 'in_progress', 'completed') not null default 'in_progress',
    primary key (order_id, user_id)
-)
+);
 
 create table user_rating
 (
-   rating_id            int not null,
-   rater_id             int not null,
-   rated_user_id        int not null,
-   order_id             int not null,
+   rating_id            int unsigned AUTO_INCREMENT not null,
+   rater_id             int unsigned not null,
+   rated_user_id        int unsigned not null,
+   order_id             int unsigned not null,
    rating               int not null,
    comment              text,
    primary key (rating_id)

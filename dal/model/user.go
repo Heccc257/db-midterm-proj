@@ -1,9 +1,9 @@
 package model
 
 /*
-create table Users
+create table User
 (
-   user_id              int not null,
+   user_id              int unsigned AUTO_INCREMENT not null,
    nickname             varchar(20) not null,
    full_name            varchar(20) not null,
    phone_number         varchar(20) not null,
@@ -18,7 +18,7 @@ create table Users
 
 */
 type User struct {
-	UserId              int    `gorm:"column:user_id;type:int(11);primary_key" json:"user_id"`
+	UserId              uint   `gorm:"column:user_id;type:int(11) unsigned;primary_key;AUTO_INCREMENT" json:"user_id"`
 	Nickname            string `gorm:"column:nickname;type:varchar(20);NOT NULL" json:"nickname"`
 	FullName            string `gorm:"column:full_name;type:varchar(20);NOT NULL" json:"full_name"`
 	PhoneNumber         string `gorm:"column:phone_number;type:varchar(20);NOT NULL" json:"phone_number"`
