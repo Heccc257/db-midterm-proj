@@ -8,7 +8,7 @@ import (
 )
 
 func TestRegister(t *testing.T) {
-	StartUp()
+	StartUp("root", "123456", "pku_mutualhelper")
 	db.Create(&model.User{
 		Nickname:     "Alice",
 		FullName:     "Alice",

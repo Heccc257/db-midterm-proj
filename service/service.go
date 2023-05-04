@@ -13,8 +13,8 @@ var Handler func(c *gin.Context) error
 
 var db *gorm.DB
 
-func StartUp() error {
-	tem, err := dal.NewDB("root", "123456", "pku_mutualhelper")
+func StartUp(user, password, database_name string) error {
+	tem, err := dal.NewDB(user, password, database_name)
 	if err != nil {
 		return err
 	}
@@ -25,5 +25,4 @@ func StartUp() error {
 func TestHandler(c *gin.Context) {
 	log.Println("23333333333")
 	c.JSON(http.StatusOK, gin.H{"msg": "OK"})
-
 }
