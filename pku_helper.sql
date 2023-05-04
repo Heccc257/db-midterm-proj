@@ -1,3 +1,6 @@
+/*
+暂时先不把外键写在里面
+*/
 create table user
 (
    user_id              int unsigned AUTO_INCREMENT not null,
@@ -10,7 +13,6 @@ create table user
    task_count           int not null default 0,
    task_complaint_count int not null default 0,
    primary key (user_id),
-   key AK_u_phone (phone_number)
 );
 
 
