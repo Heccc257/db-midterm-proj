@@ -2,6 +2,7 @@ package dal
 
 import (
 	"fmt"
+	"log"
 	"server/service/dal/model"
 
 	"gorm.io/driver/mysql"
@@ -24,6 +25,7 @@ func NewDB(user, pass, dbname string) (db *gorm.DB, err error) {
 }
 
 func createTables(db *gorm.DB) error {
+	log.Println("creating tables")
 	err := db.AutoMigrate(
 		&model.User{},
 		&model.Complaint{},
@@ -36,6 +38,7 @@ func createTables(db *gorm.DB) error {
 	if err != nil {
 		return err
 	}
+	log.Println("adding foreign key")
 	db.Exec(`alter table offer ADD CONSTRAINT FK_OFFER_USER foreign key(offer_id) references user(user_id) on delete  CASCADE;`)
 	return nil
 }

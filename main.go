@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"net/http"
 	"server/service"
 
 	"github.com/gin-gonic/gin"
@@ -21,15 +20,11 @@ func main() {
 
 	// gin.SetMode(gin.ReleaseMode)
 	S := gin.Default()
+	service.StartUp()
+
 	S.GET("/", service.TestHandler)
 
-	S.GET("/:name", func(c *gin.Context) {
-		c.String(http.StatusOK, "your name is %s\n", c.Param("name"))
-		fmt.Println("query", c.Query("token"))
-	})
-	S.GET("/test", func(c *gin.Context) {
-		c.String(http.StatusOK, "test test")
-	})
+	S.POST("/register", service.Register)
 
 	err := S.Run(addr + ":" + port)
 	if err != nil {

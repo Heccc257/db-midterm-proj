@@ -1,7 +1,7 @@
 package service
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 	"server/service/dal"
 
@@ -11,9 +11,9 @@ import (
 
 var Handler func(c *gin.Context) error
 
-var db gorm.DB
+var db *gorm.DB
 
-func StartUp(db *gorm.DB) error {
+func StartUp() error {
 	tem, err := dal.NewDB("root", "123456", "pku_mutualhelper")
 	if err != nil {
 		return err
@@ -23,7 +23,7 @@ func StartUp(db *gorm.DB) error {
 }
 
 func TestHandler(c *gin.Context) {
-	fmt.Println("23333333333")
+	log.Println("23333333333")
 	c.JSON(http.StatusOK, gin.H{"msg": "OK"})
 
 }
