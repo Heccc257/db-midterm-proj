@@ -44,6 +44,7 @@ create table offer_category
    category_name        varchar(50) not null,
    adviced_reward decimal(10,2) DEFAULT 100,
    adviced_timelimit_min int DEFAULT 100,
+   unique key(category_name)
    primary key (category_id)
 );
 
@@ -53,7 +54,7 @@ create table offer
    offer_id             int unsigned not null AUTO_INCREMENT,
    reward_amount        decimal(10,2) not null,
    customer_id          int unsigned not null,
-   category             varchar(50) not null,
+   category_name        varchar(50) not null,
    pickup_location_id   int unsigned not null,
    delivery_location_id int unsigned not null,
    offer_state          ENUM('pending', 'in_progress', 'completed') not null default 'pending',
@@ -61,6 +62,7 @@ create table offer
    time_limit           Datetime,
    primary key (offer_id)
 );
+alter table offer ADD CONSTRAINT FK_1 foreign key(category_name) references offer_category(category_name) on delete  CASCADE;
 
 
 /*
@@ -75,6 +77,7 @@ create table accept_offer
    task_state          ENUM('canceled', 'in_progress', 'completed') not null default 'in_progress',
    primary key (offer_id, user_id)
 );
+
 
 create table user_rating
 (
