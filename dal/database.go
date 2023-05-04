@@ -2,6 +2,7 @@ package dal
 
 import (
 	"fmt"
+	"server/dal/model"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -16,5 +17,25 @@ func NewDB(user, pass, dbname string) (db *gorm.DB, err error) {
 	db.Exec(fmt.Sprintf("drop database if exists %s;", dbname))
 	db.Exec(fmt.Sprintf("create database if not exists %s;", dbname))
 	db.Exec(fmt.Sprintf("use %s;", dbname))
+	if err := createTables(db); err != nil {
+		return nil, err
+	}
 	return
+}
+
+func createTables(db *gorm.DB) error {
+	err := db.AutoMigrate(
+		&model.User{},
+		&model.Complaint{},
+		&model.Location{},
+		&model.OfferCategory{},
+		&model.Offer{},
+		&model.AcceptOffer{},
+		&model.UserRating{},
+	)
+	if err != nil {
+		return err
+	}
+	db.Exec(`alter table offer ADD CONSTRAINT FK_OFFER_USER foreign key(offer_id) references user(user_id) on delete  CASCADE;`)
+	return nil
 }

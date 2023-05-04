@@ -21,6 +21,17 @@ func (m *Offer) TableName() string {
 	return "offer"
 }
 
+// func (m *Offer) AddForeignKey(db *gorm.DB) error {
+// 	if err := db.Exec(`
+// 	alter table offer ADD CONSTRAINT FK_OFFER_USER
+// 	foreign key(offer_id) references user(user_id) on delete  CASCADE;
+// 	`).Error; err != nil {
+// 		return err
+// 	}
+// 	return nil
+// }
+
 /*
 alter table offer ADD CONSTRAINT FK_OFFER_USER foreign key(offer_id) references user(user_id) on delete  CASCADE;
+
 */
