@@ -51,10 +51,11 @@ create table offer
    offer_id             int unsigned not null AUTO_INCREMENT,
    reward_amount        decimal(10,2) not null,
    customer_id          int unsigned not null,
-   category          varchar(50) not null,
+   category             varchar(50) not null,
    pickup_location_id   int unsigned not null,
    delivery_location_id int unsigned not null,
-	created_at timestamp NULL DEFAULT NULL,
+   offer_state          ENUM('pending', 'in_progress', 'completed') not null default 'pending',
+	created_at           timestamp NULL DEFAULT NULL,
    time_limit           Datetime,
    primary key (offer_id)
 );
@@ -68,7 +69,8 @@ create table accept_offer
    offer_id             int unsigned not null,
    user_id              int unsigned  not null,
    created_at timestamp NULL DEFAULT NULL,
-   status_code          ENUM('canceled', 'in_progress', 'completed') not null default 'in_progress',
+   complete_time Datetime,
+   task_state          ENUM('canceled', 'in_progress', 'completed') not null default 'in_progress',
    primary key (offer_id, user_id)
 );
 
