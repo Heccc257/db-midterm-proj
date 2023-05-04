@@ -2,7 +2,7 @@ package dal
 
 import (
 	"fmt"
-	"server/dal/model"
+	"server/service/dal/model"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

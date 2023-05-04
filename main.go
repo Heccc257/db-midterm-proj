@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	"server/service"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,9 +21,7 @@ func main() {
 
 	// gin.SetMode(gin.ReleaseMode)
 	S := gin.Default()
-	S.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"msg": "OK"})
-	})
+	S.GET("/", service.TestHandler)
 
 	S.GET("/:name", func(c *gin.Context) {
 		c.String(http.StatusOK, "your name is %s\n", c.Param("name"))
