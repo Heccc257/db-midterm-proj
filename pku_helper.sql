@@ -12,7 +12,7 @@ create table user
    offer_complaint_count int not null default 0,
    task_count           int not null default 0,
    task_complaint_count int not null default 0,
-   primary key (user_id),
+   primary key (user_id)
 );
 
 
