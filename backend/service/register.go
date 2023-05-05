@@ -13,19 +13,19 @@ import (
 func Register(c *gin.Context) {
 	fmt.Println("register")
 	if c.PostForm("phone_number") == "" {
-		c.String(http.StatusOK, "phone_number can't be empty")
+		c.String(http.StatusBadRequest, "phone_number can't be empty")
 		return
 	}
 	if c.PostForm("full_name") == "" {
-		c.String(http.StatusOK, "full_name can't be empty")
+		c.String(http.StatusBadRequest, "full_name can't be empty")
 		return
 	}
 	if c.PostForm("nickname") == "" {
-		c.String(http.StatusOK, "nickname can't be empty")
+		c.String(http.StatusBadRequest, "nickname can't be empty")
 		return
 	}
 	if c.PostForm("password_hash") == "" {
-		c.String(http.StatusOK, "password_hash can't be empty")
+		c.String(http.StatusBadRequest, "password_hash can't be empty")
 		return
 	}
 	phone_number := c.PostForm("phone_number")
