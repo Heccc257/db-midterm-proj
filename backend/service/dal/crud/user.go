@@ -20,7 +20,7 @@ type user_info struct {
 func User2user_info(u *model.User) *user_info {
 	return &user_info{
 		UserId:              u.UserId,
-		Nickname:            u.Nickname,
+		Nickname:            u.NickName,
 		FullName:            u.FullName,
 		PhoneNumber:         u.PhoneNumber,
 		OfferCount:          u.OfferCount,

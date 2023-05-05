@@ -36,9 +36,10 @@ func Register(c *gin.Context) {
 		c.String(http.StatusOK, "user exist!")
 		return
 	}
+	fmt.Println("full name = ", c.PostForm("full"))
 	user := model.User{
-		Nickname:     c.PostForm("nickname"),
-		FullName:     c.PostForm("fullname"),
+		NickName:     c.PostForm("nick_name"),
+		FullName:     c.PostForm("full_name"),
 		PhoneNumber:  c.PostForm("phone_number"),
 		PasswordHash: c.PostForm("password_hash"),
 	}

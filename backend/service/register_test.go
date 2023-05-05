@@ -10,7 +10,7 @@ import (
 func TestRegister(t *testing.T) {
 	StartUp("root", "123456", "pku_mutualhelper")
 	db.Create(&model.User{
-		Nickname:     "Alice",
+		NickName:     "Alice",
 		FullName:     "Alice",
 		PhoneNumber:  "1234567",
 		PasswordHash: "password",

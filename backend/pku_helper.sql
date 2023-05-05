@@ -4,7 +4,7 @@
 create table user
 (
    user_id              int unsigned AUTO_INCREMENT not null,
-   nickname             varchar(20) not null,
+   nick_name             varchar(20) not null,
    full_name            varchar(20) not null,
    phone_number         varchar(20) not null,
    password_hash        char(64) not null,
@@ -12,7 +12,7 @@ create table user
    offer_complaint_count int not null default 0,
    task_count           int not null default 0,
    task_complaint_count int not null default 0,
-   primary key (user_id),
+   primary key (user_id)
 );
 
 

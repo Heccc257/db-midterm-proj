@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"net/http"
 	"server/service"
 
 	"github.com/gin-gonic/gin"
@@ -33,6 +34,11 @@ func main() {
 	S.POST("/register", service.Register)
 
 	S.GET("/user_info/:uid", service.User_info)
+
+	S.PUT("/clear_database", func(ctx *gin.Context) {
+		service.StartUp(user, password, database_name)
+		ctx.JSON(http.StatusOK, "database cleared")
+	})
 
 	err := S.Run(addr + ":" + port)
 	if err != nil {
