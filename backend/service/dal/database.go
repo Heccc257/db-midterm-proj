@@ -39,6 +39,6 @@ func createTables(db *gorm.DB) error {
 		return err
 	}
 	log.Println("adding foreign key")
-	db.Exec(`alter table offer ADD CONSTRAINT FK_OFFER_USER foreign key(offer_id) references user(user_id) on delete  CASCADE;`)
+	db.Exec(`alter table offer ADD CONSTRAINT FK_OFFER_USER foreign key(customer_id) references user(user_id) on delete  CASCADE;`)
 	return nil
 }

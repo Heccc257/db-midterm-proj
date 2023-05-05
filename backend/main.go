@@ -39,7 +39,10 @@ func main() {
 		service.StartUp(user, password, database_name)
 		ctx.JSON(http.StatusOK, "database cleared")
 	})
-
+	offer := S.Group("/offer")
+	{
+		offer.POST("/post", service.OfferPost)
+	}
 	err := S.Run(addr + ":" + port)
 	if err != nil {
 		fmt.Println("服务器启动失败! ", err)
