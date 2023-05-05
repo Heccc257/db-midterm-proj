@@ -44,7 +44,7 @@ create table offer_category
    category_name        varchar(50) not null,
    adviced_reward decimal(10,2) DEFAULT 100,
    adviced_timelimit_min int DEFAULT 100,
-   unique key(category_name)
+   unique key(category_name),
    primary key (category_id)
 );
 
