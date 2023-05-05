@@ -47,3 +47,12 @@ curl --location --request POST 'http://127.0.0.1:9999/offer/post' \
 --form 'time_limit="2023-05-05 17:29:02"'
 
 echo '\n'
+
+# 没有location
+curl --location --request POST 'http://127.0.0.1:9999/offer/post' \
+--form 'reward_amount="1300.0"' \
+--form 'customer_id="2"' \
+--form 'category_name="跑腿"' \
+--form 'time_limit="2023-05-05 17:29:02"'
+
+echo '\n'
