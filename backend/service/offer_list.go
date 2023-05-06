@@ -19,6 +19,6 @@ func offerListByUser(c *gin.Context) {
 // 随机获取最多10条offer
 func OfferListRandom(c *gin.Context) {
 	var offerList []model.Offer
-	db.Order("rand()").Limit(10).Find(&offerList)
+	db.Where("offer_state = ?", "pending").Order("rand()").Limit(10).Find(&offerList)
 	c.JSON(http.StatusOK, offerList)
 }
