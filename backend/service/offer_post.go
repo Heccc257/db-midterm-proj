@@ -59,17 +59,21 @@ func OfferPost(c *gin.Context) {
 		offer.TimeLimit = time.Now()
 	}
 
+	// 事务
+	// 在发表offer的时候将对应的user的offer_count++
 	tx := db.Begin()
+
+	if err := tx.Model(&model.User{}).Where("user_id = ?", offer.CustomerId).Update("offer_count", gorm.Expr("offer_count + 1")).Error; err != nil {
+		tx.Rollback()
+		c.String(http.StatusInternalServerError, err.Error())
+	}
+
 	if err := tx.Create(&offer).Error; err != nil {
 		tx.Rollback()
 		c.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	// if err := tx.Exec(`update user set offer_count = offer_count+1 where user_id=1`).Error; err != nil {
-	if err := tx.Model(&model.User{}).Where("user_id = ?", offer.CustomerId).Update("offer_count", gorm.Expr("offer_count + 1")).Error; err != nil {
-		tx.Rollback()
-		c.String(http.StatusInternalServerError, err.Error())
-	}
+
 	tx.Commit()
 	c.JSON(http.StatusOK, gin.H{
 		"id": offer.OfferId,

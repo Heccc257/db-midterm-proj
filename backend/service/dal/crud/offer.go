@@ -6,7 +6,8 @@ import (
 	"gorm.io/gorm"
 )
 
-func OfferListPending(db *gorm.DB) []model.Offer {
-	offer_list := make([]model.Offer, 0)
-	return offer_list
+func OfferListUser(uid uint, db *gorm.DB) *[]model.Offer {
+	var offer_list []model.Offer
+	db.Model(&model.Offer{}).Where("customer_id = ?", uid).Find(&offer_list)
+	return &offer_list
 }

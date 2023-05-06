@@ -2,7 +2,9 @@ package service
 
 import (
 	"net/http"
+	"server/service/dal/crud"
 	"server/service/dal/model"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,8 +14,13 @@ import (
 包括按照发布人索引，按照完成时间排序等等
 */
 
-func offerListByUser(c *gin.Context) {
-
+func OfferListByUser(c *gin.Context) {
+	if uid, err := strconv.Atoi(c.Query("uid")); err != nil {
+		c.String(http.StatusBadRequest, "输入正确的uid")
+	} else {
+		offer_list := *crud.OfferListUser(uint(uid), db)
+		c.JSON(http.StatusOK, offer_list)
+	}
 }
 
 // 随机获取最多10条offer
