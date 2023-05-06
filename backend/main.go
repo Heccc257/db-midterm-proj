@@ -43,6 +43,9 @@ func main() {
 	offer := S.Group("/offer")
 	{
 		offer.POST("/post", service.OfferPost)
+
+		offerList := offer.Group("/offer_list")
+		offerList.GET("", service.OfferListRandom)
 	}
 
 	S.GET("/categories", service.Categories)
