@@ -15,8 +15,8 @@ func (m *OfferCategory) TableName() string {
 
 func AddCategories(db *gorm.DB) {
 	categories := []OfferCategory{
-		{CategoryName: "拿外卖", AdvicedReward: 100.0, AdvicedTimelimitMin: 60},
-		{CategoryName: "跑腿", AdvicedReward: 300.0, AdvicedTimelimitMin: 120},
+		{CategoryName: "拿外卖", AdvicedReward: 66666.0, AdvicedTimelimitMin: 60},
+		{CategoryName: "跑腿", AdvicedReward: 30000.0, AdvicedTimelimitMin: 120},
 	}
 	db.Create(categories)
 }

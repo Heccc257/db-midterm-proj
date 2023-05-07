@@ -2,7 +2,10 @@ package model
 
 import (
 	"database/sql"
+	"fmt"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type Offer struct {
@@ -20,6 +23,30 @@ type Offer struct {
 
 func (m *Offer) TableName() string {
 	return "offer"
+}
+
+func RegisterOfferTrigger(db *gorm.DB) {
+	trigger := "CREATE TRIGGER set_default_offer BEFORE INSERT ON `offer`\n" +
+		`
+	FOR EACH ROW
+	BEGIN
+
+		DECLARE reward FLOAT;
+		DECLARE time_limit_min int;
+		SELECT adviced_reward INTO reward FROM offer_category WHERE category_name = NEW.category_name;
+		SELECT adviced_timelimit_min INTO time_limit_min FROM offer_category WHERE category_name = NEW.category_name;
+
+		IF NEW.reward_amount < 1 THEN
+			SET NEW.reward_amount = reward;
+		END IF;
+		IF NEW.time_limit < NOW() THEN
+			SET NEW.time_limit = DATE_ADD(NOW(), INTERVAL time_limit_min MINUTE);
+  		END IF;
+	END;
+	`
+	fmt.Println("add trigger")
+	db.Exec(trigger)
+	// db.Exec("ALTER TRIGGER set_default_offer ENABLE;")
 }
 
 // func (m *Offer) AddForeignKey(db *gorm.DB) error {

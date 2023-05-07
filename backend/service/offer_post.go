@@ -45,7 +45,7 @@ func OfferPost(c *gin.Context) {
 	if formOffer.RewardAmount != nil {
 		offer.RewardAmount = *formOffer.RewardAmount
 	} else {
-		offer.RewardAmount = 100
+		offer.RewardAmount = -1
 	}
 
 	if formOffer.TimeLimit != nil {
@@ -56,7 +56,7 @@ func OfferPost(c *gin.Context) {
 			offer.TimeLimit = time
 		}
 	} else {
-		offer.TimeLimit = time.Now()
+		offer.TimeLimit = time.Unix(0, 0)
 	}
 
 	// 事务
