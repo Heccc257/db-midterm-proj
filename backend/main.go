@@ -52,6 +52,8 @@ func main() {
 
 	S.GET("/categories", service.Categories)
 
+	S.GET("/location_list", service.LocationList)
+
 	err := S.Run(addr + ":" + port)
 	if err != nil {
 		fmt.Println("服务器启动失败! ", err)
