@@ -33,8 +33,7 @@ func RegisterOfferTrigger(db *gorm.DB) {
 
 		DECLARE reward FLOAT;
 		DECLARE time_limit_min int;
-		SELECT adviced_reward INTO reward FROM offer_category WHERE category_name = NEW.category_name;
-		SELECT adviced_timelimit_min INTO time_limit_min FROM offer_category WHERE category_name = NEW.category_name;
+		SELECT adviced_reward, adviced_timelimit_min INTO reward, time_limit_min FROM offer_category WHERE category_name = NEW.category_name;
 
 		IF NEW.reward_amount < 1 THEN
 			SET NEW.reward_amount = reward;
