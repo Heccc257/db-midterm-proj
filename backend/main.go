@@ -54,6 +54,8 @@ func main() {
 
 	S.GET("/location_list", service.LocationList)
 
+	S.POST("/accept_offer", service.AcceptOffer)
+
 	err := S.Run(addr + ":" + port)
 	if err != nil {
 		fmt.Println("服务器启动失败! ", err)
