@@ -14,3 +14,8 @@
 ```sql
 // code here
 ```
+
+#### 根据user_rating排序
+选出task_cout > 1 (也就是说至少完成过一个订单)的用户，将他们按照rating的平均值排序 (这个sql够复杂了)
+```sql
+```
