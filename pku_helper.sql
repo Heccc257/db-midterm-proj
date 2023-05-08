@@ -74,7 +74,7 @@ create table accept_offer
    user_id              int unsigned  not null,
    created_at timestamp NULL DEFAULT NULL,
    complete_time Datetime,
-   task_state          ENUM('canceled', 'in_progress', 'completed') not null default 'in_progress',
+   task_state          ENUM('in_progress', 'completed') not null default 'in_progress',
    primary key (offer_id, user_id)
 );
 
