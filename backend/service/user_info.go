@@ -14,9 +14,8 @@ func User_info(c *gin.Context) {
 		c.String(http.StatusBadRequest, "请输入正确格式的uid")
 		return
 	}
-	u := crud.FindUserByUID(db, uint(uid))
-	if u.UserId == uint(uid) {
-		user_info := crud.User2user_info(u)
+	user_info := crud.FindUserInfoByUID(db, uint(uid))
+	if user_info.UserId == uint(uid) {
 		c.JSON(http.StatusOK, user_info)
 		return
 	}

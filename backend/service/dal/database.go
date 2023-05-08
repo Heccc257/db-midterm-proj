@@ -46,6 +46,8 @@ func createTables(db *gorm.DB) error {
 	log.Println("adding foreign key")
 	db.Exec(`alter table offer ADD CONSTRAINT FK_OFFER_USER foreign key(customer_id) references user(user_id) on delete  CASCADE;`)
 
+	// 添加视图
+	model.CreateUserView(db)
 	// 修改时区
 	log.Println("修改时区为UTC+8:00")
 	db.Exec("set time_zone = '+8:00';")

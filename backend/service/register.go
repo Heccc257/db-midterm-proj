@@ -20,7 +20,7 @@ func Register(c *gin.Context) {
 		c.String(http.StatusBadRequest, "full_name can't be empty")
 		return
 	}
-	if c.PostForm("nickname") == "" {
+	if c.PostForm("nick_name") == "" {
 		c.String(http.StatusBadRequest, "nickname can't be empty")
 		return
 	}
@@ -30,10 +30,10 @@ func Register(c *gin.Context) {
 	}
 	phone_number := c.PostForm("phone_number")
 	log.Println("phone number = ", phone_number)
-	u := crud.FindUserByPhongNumber(db, phone_number)
+	u := crud.FindUserInfoByPhongNumber(db, phone_number)
 	if u != nil && u.UserId != 0 {
 		fmt.Println("user: ", u)
-		c.String(http.StatusOK, "user exist!")
+		c.String(http.StatusOK, "phone number has been used!")
 		return
 	}
 	fmt.Println("full name = ", c.PostForm("full"))

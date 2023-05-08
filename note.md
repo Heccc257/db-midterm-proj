@@ -8,6 +8,9 @@
 
 ## TODO
 
-```sql
+#### 创建存储过程
 
+根据用户的id找到对应的User的行，以及根据用户的phone_number找到对应行
+```sql
+// code here
 ```

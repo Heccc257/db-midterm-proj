@@ -9,9 +9,9 @@ create table user
    phone_number         varchar(20) not null,
    password_hash        char(64) not null,
    offer_count          int not null default 0,
-   offer_complaint_count int not null default 0,
+   -- offer_complaint_count int not null default 0,
    task_count           int not null default 0,
-   task_complaint_count int not null default 0,
+   -- task_complaint_count int not null default 0,
    primary key (user_id)
 );
 
