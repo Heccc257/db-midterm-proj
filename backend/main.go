@@ -55,6 +55,7 @@ func main() {
 	S.GET("/location_list", service.LocationList)
 
 	S.POST("/accept_offer", service.AcceptOffer)
+	S.PUT("/complete_offer", service.CompleteOffer)
 
 	err := S.Run(addr + ":" + port)
 	if err != nil {
