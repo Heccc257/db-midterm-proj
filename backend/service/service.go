@@ -1,7 +1,6 @@
 package service
 
 import (
-	"log"
 	"net/http"
 	"server/service/dal"
 	"server/service/dal/model"
@@ -25,7 +24,6 @@ func StartUp(user, password, database_name string) error {
 }
 
 func TestHandler(c *gin.Context) {
-	log.Println("23333333333")
 	offer := &model.Offer{
 		RewardAmount:       100,
 		CustomerId:         1,
