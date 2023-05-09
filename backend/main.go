@@ -57,6 +57,10 @@ func main() {
 	S.POST("/accept_offer", service.AcceptOffer)
 	S.PUT("/complete_offer", service.CompleteOffer)
 
+	S.POST("/user_rating/:uid", service.UserRating)
+
+	S.GET("/best_users", service.BestUsers)
+
 	err := S.Run(addr + ":" + port)
 	if err != nil {
 		fmt.Println("服务器启动失败! ", err)

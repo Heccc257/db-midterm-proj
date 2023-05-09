@@ -2,7 +2,19 @@ curl --location --request PUT 'http://127.0.0.1:9999/complete_offer?uid=2&offer_
 
 echo '\n'
 
+curl --location --request PUT 'http://127.0.0.1:9999/complete_offer?uid=2&offer_id=2'
+
+echo '\n'
+
+curl --location --request PUT 'http://127.0.0.1:9999/complete_offer?uid=2&offer_id=4'
+
+echo '\n'
+
 curl --location --request PUT 'http://127.0.0.1:9999/complete_offer?uid=1&offer_id=3'
+
+echo '\n'
+
+curl --location --request PUT 'http://127.0.0.1:9999/complete_offer?uid=1&offer_id=5'
 
 echo '\n'
 
