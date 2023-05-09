@@ -1,8 +1,8 @@
-curl --location --request POST 'http://127.0.0.1:9999/accept_offer?uid=1&offer_id=1'
+curl --location --request POST 'http://127.0.0.1:9999/accept_offer?uid=2&offer_id=1'
 
 echo '\n'
 
-curl --location --request POST 'http://127.0.0.1:9999/accept_offer?uid=2&offer_id=2'
+curl --location --request POST 'http://127.0.0.1:9999/accept_offer?uid=1&offer_id=3'
 
 echo '\n'
 

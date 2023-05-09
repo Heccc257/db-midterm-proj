@@ -1,8 +1,8 @@
-curl --location --request PUT 'http://127.0.0.1:9999/complete_offer?uid=1&offer_id=1'
+curl --location --request PUT 'http://127.0.0.1:9999/complete_offer?uid=2&offer_id=1'
 
 echo '\n'
 
-curl --location --request PUT 'http://127.0.0.1:9999/complete_offer?uid=2&offer_id=2'
+curl --location --request PUT 'http://127.0.0.1:9999/complete_offer?uid=1&offer_id=3'
 
 echo '\n'
 
