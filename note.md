@@ -44,3 +44,8 @@ HAVING COUNT(ur.rating_id) > 0
 ORDER BY average_rating DESC;
 
 ```
+
+
+## TODO
+* 加一个登陆功能
+* offer_post，complete offer，accept offer，post user_rating要加token，放到Body里
