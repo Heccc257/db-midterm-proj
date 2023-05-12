@@ -89,3 +89,41 @@ create table user_rating
    comment              text,
    primary key (rating_id)
 );
+
+
+alter table accept_offer add constraint FK_Reference_15 foreign key (user_id)
+      references user (user_id) on delete restrict on update restrict;
+
+alter table accept_offer add constraint FK_Reference_16 foreign key (offer_id)
+      references offer (offer_id) on delete restrict on update restrict;
+
+alter table complaint add constraint FK_Reference_6 foreign key (complainant_id)
+      references user (user_id) on delete restrict on update restrict;
+
+alter table complaint add constraint FK_Reference_7 foreign key (defendant_id)
+      references user (user_id) on delete restrict on update restrict;
+
+alter table complaint add constraint FK_Reference_8 foreign key (offer_id)
+      references offer (offer_id) on delete restrict on update restrict;
+
+alter table offer add constraint FK_Reference_1 foreign key (customer_id)
+      references user (user_id) on delete restrict on update restrict;
+
+alter table offer add constraint FK_Reference_19 foreign key (category_name)
+      references offer_category (category_name) on delete restrict on update restrict;
+
+alter table offer add constraint FK_Reference_4 foreign key (pickup_location_id)
+      references location (location_id) on delete restrict on update restrict;
+
+alter table offer add constraint FK_Reference_5 foreign key (delivery_location_id)
+      references location (location_id) on delete restrict on update restrict;
+
+alter table user_rating add constraint FK_Reference_10 foreign key (rater_id)
+      references user (user_id) on delete restrict on update restrict;
+
+alter table user_rating add constraint FK_Reference_11 foreign key (offer_id)
+      references offer (offer_id) on delete restrict on update restrict;
+
+alter table user_rating add constraint FK_Reference_9 foreign key (rated_user_id)
+      references user (user_id) on delete restrict on update restrict;
+
