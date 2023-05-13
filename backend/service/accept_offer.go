@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"net/http"
 	"server/service/dal/crud"
 	"server/service/dal/model"
@@ -22,8 +23,17 @@ func AcceptOffer(c *gin.Context) {
 	} else {
 		accept_offer.UserId = uint(uid)
 	}
-	accept_offer.CompleteTime = time.Now()
 
+	token := c.Param("token")
+	if token != "access" {
+		// fmt.Println("token = ", token, tokens[token])
+		if uid, ok := tokens[token]; !ok || uid != accept_offer.UserId {
+			c.String(http.StatusBadRequest, "token验证失败")
+			return
+		}
+	}
+
+	accept_offer.CompleteTime = time.Now()
 	// 事务同时插入accept_offer以及更新task_count
 	tx := db.Begin()
 	err1 := tx.Create(&accept_offer).Error
@@ -39,6 +49,7 @@ func AcceptOffer(c *gin.Context) {
 }
 
 func CompleteOffer(c *gin.Context) {
+
 	query := model.AcceptOffer{}
 	if offer_id, err := strconv.Atoi(c.Query("offer_id")); err != nil {
 		c.String(http.StatusBadRequest, "请输入正确的offer_id")
@@ -50,6 +61,16 @@ func CompleteOffer(c *gin.Context) {
 	} else {
 		query.UserId = uint(uid)
 	}
+
+	token := c.Param("token")
+	if token != "access" {
+		fmt.Println("token = ", token)
+		if uid, ok := tokens[token]; !ok || uid != query.UserId {
+			c.String(http.StatusBadRequest, "token验证失败")
+			return
+		}
+	}
+
 	tx := db.Begin()
 
 	var accept_offer model.AcceptOffer
