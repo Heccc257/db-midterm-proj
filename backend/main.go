@@ -59,7 +59,7 @@ func main() {
 	S.POST("/accept_offer/:token", service.AcceptOffer)
 	S.PUT("/complete_offer/:token", service.CompleteOffer)
 
-	S.POST("/user_rating/:uid", service.UserRating)
+	S.POST("/user_rating/:uid/:token", service.UserRating)
 
 	S.GET("/best_users", service.BestUsers)
 
