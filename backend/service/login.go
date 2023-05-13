@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"server/service/dal/model"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -25,7 +24,7 @@ func Login(c *gin.Context) {
 		c.String(http.StatusBadRequest, "密码错误")
 		return
 	}
-	token := time.Now().String() + "*" + phone_number
+	token := password + "*" + phone_number
 	tokens[token] = user.UserId
 	c.JSON(http.StatusOK, gin.H{
 		"uid":   user.UserId,

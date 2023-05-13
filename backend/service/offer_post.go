@@ -1,9 +1,9 @@
 package service
 
 import (
-	"fmt"
 	"net/http"
 	"server/service/dal/model"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -35,13 +35,23 @@ type RequestOfferPost struct {
 func OfferPost(c *gin.Context) {
 	var formOffer RequestOfferPost
 	c.ShouldBind(&formOffer)
-	fmt.Printf("%+v\n", formOffer)
 	offer := model.Offer{
 		CustomerId:         uint(formOffer.CustomerID),
 		CategoryName:       formOffer.CategoryName,
 		PickupLocationId:   uint(formOffer.PickupLocationID),
 		DeliveryLocationId: uint(formOffer.DeliveryLocationID),
 	}
+
+	token := c.Param("token")
+
+	// 测试用的万能token
+	if token != "access" {
+		if uid, ok := tokens[token]; !ok || uid != offer.CustomerId {
+			c.String(http.StatusBadRequest, "token验证失败")
+			return
+		}
+	}
+
 	if formOffer.RewardAmount != nil {
 		offer.RewardAmount = *formOffer.RewardAmount
 	} else {
@@ -49,14 +59,14 @@ func OfferPost(c *gin.Context) {
 	}
 
 	if formOffer.TimeLimit != nil {
-		if time, err := time.Parse("2006-01-02 15:04:05.999999999", *formOffer.TimeLimit); err != nil {
+		if time_limit, err := strconv.Atoi(*formOffer.TimeLimit); err != nil {
 			c.String(http.StatusBadRequest, "请输入正确的截止时间")
 			return
 		} else {
-			offer.TimeLimit = time
+			offer.TimeLimit = time.Unix(time.Now().Unix()+int64(time_limit), 0)
 		}
 	} else {
-		offer.TimeLimit = time.Unix(0, 0)
+		offer.TimeLimit = time.Unix(time.Now().Unix()-1, 0)
 	}
 
 	// 事务
