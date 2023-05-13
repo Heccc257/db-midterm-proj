@@ -33,6 +33,8 @@ func main() {
 
 	S.POST("/register", service.Register)
 
+	S.GET("/login", service.Login)
+
 	S.GET("/user_info/:uid", service.User_info)
 
 	S.PUT("/clear_database", func(ctx *gin.Context) {
