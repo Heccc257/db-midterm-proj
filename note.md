@@ -49,3 +49,20 @@ ORDER BY average_rating DESC;
 ## TODO
 * 加一个登陆功能
 * offer_post，complete offer，accept offer，post user_rating要加token，放到Body里
+
+## front-end
+* 注册，登陆界面
+    * 登陆后返回uid以及鉴权token
+* 左侧项目
+    * 个人主页
+        * 返回user_info
+    * 订单
+        * 显示未被接取的订单。用户可以在这个界面接取订单 `accept_offer`
+    * 我的发单
+        * 显示用户已经发送的订单
+        * 有发单按钮，可以发送订单 `offer_post`
+        * 对于已经完成的订单`offer_state == completed`,可以提交评论 `user_rating`
+    * 我的接单
+        * 显示我已经接取了的订单
+        * 有`完成订单`的按钮
+    * 用户排名
