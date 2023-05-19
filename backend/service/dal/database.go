@@ -15,6 +15,12 @@ func NewDB(user, pass, dbname string) (db *gorm.DB, err error) {
 	dsn := fmt.Sprintf("%s:%s@tcp(127.0.0.1:3306)/?charset=utf8mb4&parseTime=True&loc=Local", user, pass)
 	fmt.Println("dsn: ", dsn)
 	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		fmt.Println("连接数据库失败", err)
+		return
+	} else {
+		fmt.Println("连接数据库成功")
+	}
 	db.Exec(fmt.Sprintf("drop database if exists %s;", dbname))
 	db.Exec(fmt.Sprintf("create database if not exists %s;", dbname))
 	db.Exec(fmt.Sprintf("use %s;", dbname))
