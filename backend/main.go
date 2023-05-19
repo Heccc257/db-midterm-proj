@@ -58,6 +58,7 @@ func main() {
 
 	S.POST("/accept_offer/:token", service.AcceptOffer)
 	S.PUT("/complete_offer/:token", service.CompleteOffer)
+	S.GET("accept_offer_list/:uid", service.AcceptOfferList)
 
 	S.POST("/user_rating/:uid/:token", service.UserRating)
 

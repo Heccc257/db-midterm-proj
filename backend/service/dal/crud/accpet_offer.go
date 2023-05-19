@@ -15,6 +15,12 @@ func FindAcceptOffer(db *gorm.DB, offer_id, uid uint, ao *model.AcceptOffer) err
 	return nil
 }
 
+func AcceptOfferListUser(uid uint, db *gorm.DB) *[]model.AcceptOffer {
+	var accept_offer_list []model.AcceptOffer
+	db.Model(&model.AcceptOffer{}).Where("user_id = ?", uid).Find(&accept_offer_list)
+	return &accept_offer_list
+}
+
 func AcceptOfferModifyState(tx *gorm.DB, offer_id, uid uint, state string) error {
 	var accept_offer model.AcceptOffer
 	if tx.Model(&model.AcceptOffer{}).Where("offer_id = ?", offer_id).Where("uid = ?", uid).Find(&accept_offer); accept_offer.OfferId == 0 {
