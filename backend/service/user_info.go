@@ -1,8 +1,9 @@
 package service
 
 import (
+	"fmt"
 	"net/http"
-	"server/service/dal/crud"
+	"server/service/dal/model"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -14,7 +15,10 @@ func User_info(c *gin.Context) {
 		c.String(http.StatusBadRequest, "请输入正确格式的uid")
 		return
 	}
-	user_info := crud.FindUserInfoByUID(db, uint(uid))
+	fmt.Println("uid = ", uid)
+	var user_info model.UserInfo
+	db.Raw("CALL GetUserByID(?);", uid).Scan(&user_info)
+
 	if user_info.UserId == uint(uid) {
 		c.JSON(http.StatusOK, user_info)
 		return

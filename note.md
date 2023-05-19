@@ -61,7 +61,18 @@ xxx
     ORDER BY average_rating DESC;
     ```
 
-    
+#### 存储过程
+
+* 将根据uid查询user_info添加为存储过程
+
+  * ```sql
+    CREATE PROCEDURE GetUserByID(IN uid INT)
+    BEGIN
+    	SELECT *
+    	FROM user_info
+    	WHERE user_id = uid;
+    END
+    ```
 
 #### 事务 
 

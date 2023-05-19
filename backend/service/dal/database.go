@@ -101,6 +101,16 @@ func createTables(db *gorm.DB) error {
 	// 添加trigger
 	model.RegisterOfferTrigger(db)
 
+	// 添加存储过程
+	db.Exec(`
+		CREATE PROCEDURE GetUserByID(IN uid INT)
+		BEGIN
+			SELECT *
+			FROM user_info
+			WHERE user_id = uid;
+		END
+	`)
+
 	// 修改时区
 	log.Println("修改时区为UTC+8:00")
 	db.Exec("set time_zone = '+8:00';")
