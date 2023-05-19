@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"net/http"
 	"server/service/dal/crud"
 	"server/service/dal/model"
@@ -15,7 +16,8 @@ import (
 */
 
 func OfferListByUser(c *gin.Context) {
-	if uid, err := strconv.Atoi(c.Query("uid")); err != nil {
+	fmt.Println("offer list uid", c.Param("uid"))
+	if uid, err := strconv.Atoi(c.Param("uid")); err != nil {
 		c.String(http.StatusBadRequest, "输入正确的uid")
 	} else {
 		offer_list := *crud.OfferListUser(uint(uid), db)

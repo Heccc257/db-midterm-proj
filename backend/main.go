@@ -49,7 +49,7 @@ func main() {
 		offerList := offer.Group("/offer_list")
 
 		offerList.GET("", service.OfferListRandom)
-		offerList.GET("/user", service.OfferListByUser)
+		offerList.GET("/:uid", service.OfferListByUser)
 	}
 
 	S.GET("/categories", service.Categories)
