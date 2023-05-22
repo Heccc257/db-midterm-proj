@@ -18,7 +18,7 @@ var (
 )
 
 func main() {
-	flag.StringVar(&addr, "addr", "127.0.0.1", "address to listen")
+	flag.StringVar(&addr, "addr", "0.0.0.0", "address to listen")
 	flag.StringVar(&port, "port", "9999", "port to listen")
 	flag.StringVar(&user, "u", "root", "mysql user")
 	flag.StringVar(&password, "p", "123456", "mysql password")
