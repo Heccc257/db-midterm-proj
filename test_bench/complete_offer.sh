@@ -1,3 +1,4 @@
+echo "-------------------- complete offer ----------------------"
 curl --location --request PUT 'http://127.0.0.1:9999/complete_offer/pass_word_bob*54321?uid=2&offer_id=1'
 
 echo '\n'
