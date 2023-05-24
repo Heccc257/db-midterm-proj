@@ -2,7 +2,6 @@ package service
 
 import (
 	"fmt"
-	"net/http"
 	"server/service/dal/crud"
 	"server/service/dal/model"
 	"strconv"
@@ -14,13 +13,17 @@ import (
 func CompleteOffer(c *gin.Context) {
 
 	query := model.AcceptOffer{}
-	if offer_id, err := strconv.Atoi(c.Query("offer_id")); err != nil {
-		c.String(http.StatusBadRequest, "请输入正确的offer_id")
+	if offer_id, err := strconv.Atoi(c.PostForm("offer_id")); err != nil {
+		responseBadRequest(c, "请输入正确的offer_id")
+		// c.String(http.StatusBadRequest, "请输入正确的offer_id")
+		return
 	} else {
 		query.OfferId = uint(offer_id)
 	}
-	if uid, err := strconv.Atoi(c.Query("uid")); err != nil {
-		c.String(http.StatusBadRequest, "请输入正确的uid")
+	if uid, err := strconv.Atoi(c.PostForm("uid")); err != nil {
+		responseBadRequest(c, "请输入正确的uid")
+		// c.String(http.StatusBadRequest, "请输入正确的uid")
+		return
 	} else {
 		query.UserId = uint(uid)
 	}
@@ -29,7 +32,8 @@ func CompleteOffer(c *gin.Context) {
 	if token != "access" {
 		fmt.Println("token = ", token)
 		if uid, ok := tokens[token]; !ok || uid != query.UserId {
-			c.String(http.StatusBadRequest, "token验证失败")
+			responseBadRequest(c, "token验证失败")
+			// c.String(http.StatusBadRequest, "token验证失败")
 			return
 		}
 	}
@@ -48,9 +52,11 @@ func CompleteOffer(c *gin.Context) {
 
 	if err1 != nil || err2 != nil || err3 != nil {
 		tx.Rollback()
-		c.String(http.StatusInternalServerError, "完成订单失败")
+		responseFatal(c, "完成订单失败")
+		// c.String(http.StatusInternalServerError, "完成订单失败")
 		return
 	}
 	tx.Commit()
-	c.String(http.StatusOK, "成功完成订单")
+	responseOK(c, "成功完成订单")
+	// c.String(http.StatusOK, "成功完成订单")
 }

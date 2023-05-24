@@ -33,7 +33,7 @@ func main() {
 
 	S.POST("/register", service.Register)
 
-	S.GET("/login", service.Login)
+	S.POST("/login", service.Login)
 
 	S.GET("/user_info/:uid", service.User_info)
 

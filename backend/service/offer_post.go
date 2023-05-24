@@ -1,7 +1,6 @@
 package service
 
 import (
-	"net/http"
 	"server/service/dal/model"
 	"strconv"
 	"time"
@@ -11,17 +10,17 @@ import (
 )
 
 /*
-type Offer struct {
-	OfferId            uint         `gorm:"column:offer_id;type:int(11) unsigned;primary_key;AUTO_INCREMENT" json:"offer_id"`
-	RewardAmount       float64      `gorm:"column:reward_amount;type:decimal(10,2);NOT NULL" json:"reward_amount"`
-	CustomerId         uint         `gorm:"column:customer_id;type:int(11) unsigned;NOT NULL" json:"customer_id"`
-	CategoryName       string       `gorm:"column:category_name;type:varchar(50);NOT NULL" json:"category_name"`
-	PickupLocationId   uint         `gorm:"column:pickup_location_id;type:int(11) unsigned;NOT NULL" json:"pickup_location_id"`
-	DeliveryLocationId uint         `gorm:"column:delivery_location_id;type:int(11) unsigned;NOT NULL" json:"delivery_location_id"`
-	OfferState         string       `gorm:"column:offer_state;type:enum('pending','in_progress','completed');default:pending;NOT NULL" json:"offer_state"`
-	CreatedAt          sql.NullTime `gorm:"column:created_at;type:timestamp" json:"created_at"`
-	TimeLimit          time.Time    `gorm:"column:time_limit;type:datetime" json:"time_limit"`
-}
+	type Offer struct {
+		OfferId            uint         `gorm:"column:offer_id;type:int(11) unsigned;primary_key;AUTO_INCREMENT" json:"offer_id"`
+		RewardAmount       float64      `gorm:"column:reward_amount;type:decimal(10,2);NOT NULL" json:"reward_amount"`
+		CustomerId         uint         `gorm:"column:customer_id;type:int(11) unsigned;NOT NULL" json:"customer_id"`
+		CategoryName       string       `gorm:"column:category_name;type:varchar(50);NOT NULL" json:"category_name"`
+		PickupLocationId   uint         `gorm:"column:pickup_location_id;type:int(11) unsigned;NOT NULL" json:"pickup_location_id"`
+		DeliveryLocationId uint         `gorm:"column:delivery_location_id;type:int(11) unsigned;NOT NULL" json:"delivery_location_id"`
+		OfferState         string       `gorm:"column:offer_state;type:enum('pending','in_progress','completed');default:pending;NOT NULL" json:"offer_state"`
+		CreatedAt          sql.NullTime `gorm:"column:created_at;type:timestamp" json:"created_at"`
+		TimeLimit          time.Time    `gorm:"column:time_limit;type:datetime" json:"time_limit"`
+	}
 */
 type RequestOfferPost struct {
 	CategoryName       string   `form:"category_name"`
@@ -47,7 +46,8 @@ func OfferPost(c *gin.Context) {
 	// 测试用的万能token
 	if token != "access" {
 		if uid, ok := tokens[token]; !ok || uid != offer.CustomerId {
-			c.String(http.StatusBadRequest, "token验证失败")
+			responseBadRequest(c, "token验证失败")
+			// c.String(http.StatusBadRequest, "token验证失败")
 			return
 		}
 	}
@@ -60,7 +60,8 @@ func OfferPost(c *gin.Context) {
 
 	if formOffer.TimeLimit != nil {
 		if time_limit, err := strconv.Atoi(*formOffer.TimeLimit); err != nil {
-			c.String(http.StatusBadRequest, "请输入正确的截止时间")
+			responseBadRequest(c, "请输入正确的截止时间")
+			// c.String(http.StatusBadRequest, "请输入正确的截止时间")
 			return
 		} else {
 			offer.TimeLimit = time.Unix(time.Now().Unix()+int64(time_limit), 0)
@@ -75,17 +76,22 @@ func OfferPost(c *gin.Context) {
 
 	if err := tx.Model(&model.User{}).Where("user_id = ?", offer.CustomerId).Update("offer_count", gorm.Expr("offer_count + 1")).Error; err != nil {
 		tx.Rollback()
-		c.String(http.StatusInternalServerError, err.Error())
+		responseFatal(c, err.Error())
+		// c.String(http.StatusInternalServerError, err.Error())
+		return
 	}
 
 	if err := tx.Create(&offer).Error; err != nil {
 		tx.Rollback()
-		c.String(http.StatusInternalServerError, err.Error())
+		responseFatal(c, err.Error())
 		return
 	}
 
 	tx.Commit()
-	c.JSON(http.StatusOK, gin.H{
+	// c.JSON(http.StatusOK, gin.H{
+	// 	"id": offer.OfferId,
+	// })
+	responseOK(c, gin.H{
 		"id": offer.OfferId,
 	})
 }
