@@ -31,3 +31,16 @@ func OfferListRandom(c *gin.Context) {
 	db.Where("offer_state = ?", "pending").Order("rand()").Limit(10).Find(&offerList)
 	c.JSON(http.StatusOK, offerList)
 }
+
+//按分类获取
+func OfferListByCat(c *gin.Context) {
+	fmt.Println("offer list by category", c.Param("category"))
+	category := c.Param("category")
+	if category == "" {
+		c.String(http.StatusBadRequest, "请输入正确的分类")
+	} else {
+		var offerList []model.Offer
+		db.Where("category_name = ? AND offer_state = ?", category, "pending").Find(&offerList)
+		c.JSON(http.StatusOK, offerList)
+	}
+}
