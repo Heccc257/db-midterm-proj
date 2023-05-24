@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"server/service/dal/model"
 	"strconv"
 	"time"
@@ -46,7 +47,7 @@ func OfferPost(c *gin.Context) {
 	// 测试用的万能token
 	if token != "access" {
 		if uid, ok := tokens[token]; !ok || uid != offer.CustomerId {
-			responseBadRequest(c, "token验证失败")
+			responseBadRequest(c, fmt.Sprintf("token验证失败 token: %s, uid: %d", token, offer.CustomerId))
 			// c.String(http.StatusBadRequest, "token验证失败")
 			return
 		}

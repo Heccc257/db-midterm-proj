@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"log"
 	"server/service/dal/model"
 
 	"github.com/gin-gonic/gin"
@@ -32,6 +33,7 @@ func Login(c *gin.Context) {
 	// 	"uid":   user.UserId,
 	// 	"token": token,
 	// })
+	log.Printf("login: uid: %d ; token:%s \n", user.UserId, token)
 	responseOK(c, gin.H{
 		"uid":   user.UserId,
 		"token": token,

@@ -13,14 +13,14 @@ import (
 func CompleteOffer(c *gin.Context) {
 
 	query := model.AcceptOffer{}
-	if offer_id, err := strconv.Atoi(c.PostForm("offer_id")); err != nil {
+	if offer_id, err := strconv.Atoi(c.Query("offer_id")); err != nil {
 		responseBadRequest(c, "请输入正确的offer_id")
 		// c.String(http.StatusBadRequest, "请输入正确的offer_id")
 		return
 	} else {
 		query.OfferId = uint(offer_id)
 	}
-	if uid, err := strconv.Atoi(c.PostForm("uid")); err != nil {
+	if uid, err := strconv.Atoi(c.Query("uid")); err != nil {
 		responseBadRequest(c, "请输入正确的uid")
 		// c.String(http.StatusBadRequest, "请输入正确的uid")
 		return
