@@ -30,6 +30,21 @@ func ChangeUserInfo(c *gin.Context) {
 		return
 	}
 
+	// Validate the user's information
+	if len(newUserInfo.PhoneNumber) != 11 {
+		c.String(http.StatusBadRequest, "Phone number should be 11 digits")
+		return
+	}
+	if len(newUserInfo.NickName) > 25 {
+		c.String(http.StatusBadRequest, "NickName should be within 25 characters")
+		return
+	}
+	if len(newUserInfo.FullName) > 25 {
+		c.String(http.StatusBadRequest, "FullName should be within 25 characters")
+		return
+	}
+
+
 	// Change the user's information if new information is provided
 	if newUserInfo.NickName != "" {
 		user.NickName = newUserInfo.NickName
