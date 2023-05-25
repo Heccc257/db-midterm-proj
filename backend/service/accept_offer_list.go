@@ -16,10 +16,16 @@ func AcceptOfferList(c *gin.Context) {
 		var offer_list []model.Offer
 
 		// offer_id 相等
-		db.Table("offer").
-			Joins("NATURAL JOIN accept_offer").
-			Where("user_id = ?", uid).
+		accpet_offer_id := db.Table("accept_offer").
+			Select("offer_id").
+			Where("user_id = ?", uid)
+		db.Table("(?) as t1", accpet_offer_id).
+			Joins("NATURAL JOIN offer as t2").
 			Select("*").Scan(&offer_list)
+		// db.Table("offer").
+		// 	Joins("NATURAL JOIN accept_offer").
+		// 	Where("user_id = ?", uid).
+		// 	Select("*").Scan(&offer_list)
 		fmt.Println(offer_list)
 
 		// accpet_offer_list := *crud.AcceptOfferListUser(uint(uid), db)
