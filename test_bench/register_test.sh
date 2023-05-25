@@ -41,3 +41,11 @@ echo '\n'
 
 
 # curl --location --request GET 'http://127.0.0.1:9999/user_info/1'
+
+curl --location --request POST '127.0.0.1:9999/register' \
+--header 'User-Agent: Apifox/1.0.0 (https://www.apifox.cn)' \
+--form 'nick_name="aaa"' \
+--form 'full_name="aaa"' \
+--form 'phone_number="111"' \
+--form 'password_hash="111"'
+echo '\n'

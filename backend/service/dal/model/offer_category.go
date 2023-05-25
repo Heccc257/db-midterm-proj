@@ -20,3 +20,10 @@ func AddCategories(db *gorm.DB) {
 	}
 	db.Create(categories)
 }
+
+/*
+{category_id: 1, category_name: "拿外卖", adviced_reward: 66666.0, adviced_timelimit_min: 60},
+{category_id: 2, category_name: "跑腿", adviced_reward: 30000.0, adviced_timelimit_min: 120},
+
+
+*/

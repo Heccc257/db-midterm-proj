@@ -26,7 +26,8 @@ func UserRating(c *gin.Context) {
 	if token != "access" {
 		// fmt.Println("token = ", token, tokens[token])
 		if uid, ok := tokens[token]; !ok || uid != userRating.RaterId {
-			c.String(http.StatusBadRequest, "token验证失败")
+			responseBadRequest(c, "token验证失败")
+			// c.String(http.StatusBadRequest, "token验证失败")
 			return
 		}
 	}
@@ -39,7 +40,8 @@ func UserRating(c *gin.Context) {
 	db.Model(&model.AcceptOffer{}).Where("offer_id = ?", rating_info.OfferID).Find(&accept_offer)
 	// fmt.Println("offer id = ", rating_info.OfferID, "accept_offer = ", accept_offer)
 	if accept_offer.OfferId != uint(rating_info.OfferID) {
-		c.String(http.StatusBadRequest, "评论失败")
+		responseBadRequest(c, "评论失败")
+		// c.String(http.StatusBadRequest, "评论失败")
 		return
 	}
 	userRating.Comment = rating_info.Comment
@@ -47,5 +49,6 @@ func UserRating(c *gin.Context) {
 	userRating.Rating = int(rating_info.Rating)
 	userRating.RatedUserId = accept_offer.UserId
 	db.Create(&userRating)
-	c.String(http.StatusOK, "评论成功")
+	response(c, http.StatusOK, "评论成功", nil)
+	// c.String(http.StatusOK, "评论成功")
 }

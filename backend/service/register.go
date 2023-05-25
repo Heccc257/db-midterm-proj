@@ -12,20 +12,26 @@ import (
 
 func Register(c *gin.Context) {
 	fmt.Println("register")
+	// fmt.Println("phone_number: ", c.PostForm("phone_number"))
+	// fmt.Println("nick_name: ", c.PostForm("nick_name"))
 	if c.PostForm("phone_number") == "" {
-		c.String(http.StatusBadRequest, "phone_number can't be empty")
+		responseBadRequest(c, "phone_number can't be empty")
+		// c.String(http.StatusBadRequest, "phone_number can't be empty")
 		return
 	}
 	if c.PostForm("full_name") == "" {
-		c.String(http.StatusBadRequest, "full_name can't be empty")
+		responseBadRequest(c, "full_name can't be empty")
+		// c.String(http.StatusBadRequest, "full_name can't be empty")
 		return
 	}
 	if c.PostForm("nick_name") == "" {
-		c.String(http.StatusBadRequest, "nickname can't be empty")
+		responseBadRequest(c, "nickname can't be empty")
+		// c.String(http.StatusBadRequest, "nickname can't be empty")
 		return
 	}
 	if c.PostForm("password_hash") == "" {
-		c.String(http.StatusBadRequest, "password_hash can't be empty")
+		responseBadRequest(c, "password_hash can't be empty")
+		// c.String(http.StatusBadRequest, "password_hash can't be empty")
 		return
 	}
 	phone_number := c.PostForm("phone_number")
@@ -50,7 +56,8 @@ func Register(c *gin.Context) {
 	u := crud.FindUserInfoByPhongNumber(db, phone_number)
 	if u != nil && u.UserId != 0 {
 		fmt.Println("user: ", u)
-		c.String(http.StatusOK, "phone number has been used!")
+		responseBadRequest(c, "phone number has been used!")
+		// c.String(http.StatusOK, "phone number has been used!")
 		return
 	}
 	fmt.Println("full name = ", c.PostForm("full"))
@@ -61,5 +68,7 @@ func Register(c *gin.Context) {
 		PasswordHash: c.PostForm("password_hash"),
 	}
 	crud.InsertUser(db, &user)
-	c.String(http.StatusOK, "register succeed and your uid is %d", user.UserId)
+
+	response(c, http.StatusOK, fmt.Sprintf("register succeed and your uid is %d", user.UserId), nil)
+	// c.String(http.StatusOK, "register succeed and your uid is %d", user.UserId)
 }

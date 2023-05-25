@@ -15,5 +15,6 @@ func Categories(c *gin.Context) {
 		return
 	}
 	fmt.Println(categories)
-	c.JSON(http.StatusOK, categories)
+	responseOK(c, categories)
+	// c.JSON(http.StatusOK, categories)
 }

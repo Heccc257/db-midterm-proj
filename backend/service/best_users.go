@@ -1,8 +1,6 @@
 package service
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -40,5 +38,7 @@ func BestUsers(c *gin.Context) {
 	db.Table("(?) as t1", subQuery1).
 		Joins("NATURAL JOIN user_info AS t2").
 		Select("user_id, nick_name, avg_rating").Scan(&best_users)
-	c.JSON(http.StatusOK, best_users)
+
+	responseOK(c, best_users)
+	// c.JSON(http.StatusOK, best_users)
 }
