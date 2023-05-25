@@ -37,6 +37,19 @@ func AcceptOffer(c *gin.Context) {
 		}
 	}
 
+	// Check if the offer is made by the same user
+	offer := model.Offer{}
+	if err := db.Where("id = ?", accept_offer.OfferId).First(&offer).Error; err != nil {
+		//c.String(http.StatusInternalServerError, "查询订单失败")
+		responseFatal(c, "查询订单失败")
+		return
+	}
+	if offer.CustomerId == accept_offer.UserId {
+		//c.String(http.StatusBadRequest, "不能接取自己的订单")
+		responseBadRequest(c, "不能接取自己的订单")
+		return
+	}
+
 	accept_offer.CompleteTime = time.Now()
 	// 事务同时插入accept_offer以及更新task_count
 	tx := db.Begin()

@@ -64,6 +64,11 @@ func main() {
 
 	S.GET("/best_users", service.BestUsers)
 
+	//
+	S.GET("/offer_list_by_cat/:category", service.OfferListByCat) //按分类获取
+	S.PUT("/change_usr_info/:user_id", service.ChangeUserInfo) //修改用户信息
+
+
 	err := S.Run(addr + ":" + port)
 	if err != nil {
 		fmt.Println("服务器启动失败! ", err)
