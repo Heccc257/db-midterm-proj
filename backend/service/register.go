@@ -36,20 +36,23 @@ func Register(c *gin.Context) {
 	}
 	phone_number := c.PostForm("phone_number")
 	if len(phone_number) != 11 {
-		c.String(http.StatusBadRequest, "Phone number should be 11 digits")
+		//c.String(http.StatusBadRequest, "Phone number should be 11 digits")
+		responseBadRequest(c, "Phone number should be 11 digits")
 		return
 	}
 	log.Println("phone number = ", phone_number)
 
 	nickName := c.PostForm("nick_name")
 	if len(nickName) > 25 {
-		c.String(http.StatusBadRequest, "NickName should be within 25 characters")
+		//c.String(http.StatusBadRequest, "NickName should be within 25 characters")
+		responseBadRequest(c, "NickName should be within 25 characters")
 		return
 	}
 
 	fullName := c.PostForm("full_name")
 	if len(fullName) > 25 {
-		c.String(http.StatusBadRequest, "FullName should be within 25 characters")
+		//c.String(http.StatusBadRequest, "FullName should be within 25 characters")
+		responseBadRequest(c, "FullName should be within 25 characters")		
 		return
 	}
 
