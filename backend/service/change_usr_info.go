@@ -1,7 +1,6 @@
 package service
 
 import (
-	"net/http"
 	"server/service/dal/model"
 	"strconv"
 
@@ -49,7 +48,6 @@ func ChangeUserInfo(c *gin.Context) {
 		responseBadRequest(c, "FullName should be within 25 characters")
 		return
 	}
-
 
 	// Change the user's information if new information is provided
 	if newUserInfo.NickName != "" {
