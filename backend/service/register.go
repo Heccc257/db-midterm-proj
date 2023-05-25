@@ -35,7 +35,7 @@ func Register(c *gin.Context) {
 		return
 	}
 	phone_number := c.PostForm("phone_number")
-	if len(phoneNumber) != 11 {
+	if len(phone_number) != 11 {
 		c.String(http.StatusBadRequest, "Phone number should be 11 digits")
 		return
 	}
