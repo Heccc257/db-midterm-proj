@@ -42,3 +42,8 @@ curl --location --request POST 'http://127.0.0.1:9999/accept_offer/access?uid=1&
 --form 'offer_id="100"'
 
 echo '\n'
+
+curl --location --request POST 'http://127.0.0.1:9999/accept_offer/pass_word_bob*54321' \
+--form 'uid="2"' \
+--form 'offer_id="11"'
+echo '\n'
