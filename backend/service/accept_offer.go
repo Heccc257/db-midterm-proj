@@ -39,6 +39,7 @@ func AcceptOffer(c *gin.Context) {
 
 	// Check if the offer is made by the same user
 	offer := model.Offer{}
+
 	if err := db.Model(&model.Offer{}).Where("offer_id = ?", accept_offer.OfferId).First(&offer).Error; err != nil {
 		//c.String(http.StatusInternalServerError, "查询订单失败")
 		responseFatal(c, "查询订单失败")
