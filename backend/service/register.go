@@ -2,7 +2,6 @@ package service
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"server/service/dal/crud"
 	"server/service/dal/model"
@@ -41,7 +40,8 @@ func Register(c *gin.Context) {
 	// 	responseBadRequest(c, "Phone number should be 11 digits")
 	// 	return
 	// }
-	log.Println("phone number = ", phone_number)
+
+	// log.Println("phone number = ", phone_number)
 
 	nickName := c.PostForm("nick_name")
 	if len(nickName) > 25 {
