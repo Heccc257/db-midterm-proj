@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"net/http"
 	"server/service/dal/crud"
 	"server/service/dal/model"
 	"strconv"
@@ -57,6 +58,7 @@ func CompleteOffer(c *gin.Context) {
 		return
 	}
 	tx.Commit()
-	responseOK(c, "成功完成订单")
+	response(c, http.StatusOK, "成功完成订单", nil)
+	// responseOK(c, "成功完成订单")
 	// c.String(http.StatusOK, "成功完成订单")
 }

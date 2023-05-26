@@ -117,6 +117,8 @@ curl --location --request POST 'http://127.0.0.1:9999/offer/post/access' \
 --form 'delivery_location_id="1"' \
 --form 'time_limit="500"'
 
+echo '\n'
+
 curl --location --request POST 'http://127.0.0.1:9999/offer/post/access' \
 --form 'reward_amount="220.0"' \
 --form 'customer_id="1"' \
@@ -124,3 +126,5 @@ curl --location --request POST 'http://127.0.0.1:9999/offer/post/access' \
 --form 'pickup_location_id="1"' \
 --form 'delivery_location_id="5"' \
 --form 'time_limit="500"'
+
+echo '\n'

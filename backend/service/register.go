@@ -35,11 +35,12 @@ func Register(c *gin.Context) {
 		return
 	}
 	phone_number := c.PostForm("phone_number")
-	if len(phone_number) != 11 {
-		//c.String(http.StatusBadRequest, "Phone number should be 11 digits")
-		responseBadRequest(c, "Phone number should be 11 digits")
-		return
-	}
+
+	// if len(phone_number) != 11 {
+	// 	//c.String(http.StatusBadRequest, "Phone number should be 11 digits")
+	// 	responseBadRequest(c, "Phone number should be 11 digits")
+	// 	return
+	// }
 	log.Println("phone number = ", phone_number)
 
 	nickName := c.PostForm("nick_name")
@@ -52,7 +53,7 @@ func Register(c *gin.Context) {
 	fullName := c.PostForm("full_name")
 	if len(fullName) > 25 {
 		//c.String(http.StatusBadRequest, "FullName should be within 25 characters")
-		responseBadRequest(c, "FullName should be within 25 characters")		
+		responseBadRequest(c, "FullName should be within 25 characters")
 		return
 	}
 
@@ -63,7 +64,6 @@ func Register(c *gin.Context) {
 		// c.String(http.StatusOK, "phone number has been used!")
 		return
 	}
-	fmt.Println("full name = ", c.PostForm("full"))
 	user := model.User{
 		NickName:     c.PostForm("nick_name"),
 		FullName:     c.PostForm("full_name"),
