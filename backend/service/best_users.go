@@ -29,14 +29,15 @@ func BestUsers(c *gin.Context) {
 	// 等价于以下sql
 	/*
 		select user_id, nick_name, avg_rating from
-		(select rated_user_id as user_id, avg(rating) as avg_rating from user_rating
+		((select rated_user_id as user_id, avg(rating) as avg_rating from user_rating
 		group by rated_user_id
 		order by avg_rating DESC
 		LIMIT 10) AS t1
-		NATURAL JOIN user_info AS t2;
+		NATURAL JOIN user_info AS t2) order by avg_rating DESC;
 	*/
 	db.Table("(?) as t1", subQuery1).
 		Joins("NATURAL JOIN user_info AS t2").
+		Order("avg_rating DESC").
 		Select("user_id, nick_name, avg_rating").Scan(&best_users)
 
 	responseOK(c, best_users)
